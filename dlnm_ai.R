@@ -1,6 +1,7 @@
 # ==============================================================================
 # 1. LOAD REQUIRED LIBRARIES
 # ==============================================================================
+setwd("C:/Users/yanss/OneDrive/Codes/4096_project_new")
 install.packages("dlnm")
 install.packages("mgcv")
 library(dlnm)     # For cross-basis matrices
@@ -96,14 +97,14 @@ res_list <- list()
 
 # Extract residuals for Exposure 1 Basis Columns
 for(col in colnames(df_exp1)) {
-  f1 <- as.formula(paste(col, "~", all_insts, "+ s(as.numeric(From)) + s(confounder1)"))
+  f1 <- as.formula(paste(col, "~", "+ s(as.numeric(From)) + s(confounder1)"))
   m1 <- gam(f1, data = model_data)
   res_list[[paste0("res_", col)]] <- residuals(m1, type = "response")
 }
 
 # Extract residuals for Exposure 2 Basis Columns
 for(col in colnames(df_exp2)) {
-  f2 <- as.formula(paste(col, "~", all_insts, "+ s(as.numeric(From)) + s(confounder1)"))
+  f2 <- as.formula(paste(col, "~", "+ s(as.numeric(From)) + s(confounder1)"))
   m2 <- gam(f2, data = model_data)
   res_list[[paste0("res_", col)]] <- residuals(m2, type = "response")
 }
